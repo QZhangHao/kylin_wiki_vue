@@ -52,6 +52,7 @@ export function backEndRouter(data: any) {
                 isLink: meta.isLink,
                 isKeepAlive: meta.isKeepAlive || false,
                 auth: meta.auth || [],
+                isHide:meta.isHide || false,
             }
         }  
     });
@@ -66,12 +67,12 @@ export const generatorDynamicRouter = (): Promise<RouteRecordRaw[]> => {
     return new Promise((resolve, reject) => {
         getMenus().then(result => { 
             const routeList = backEndRouter(result.data)   
-            routeList.forEach(item => {
-                // 设置模块重定向到菜单
-                if (item.children?.length > 0 && !item.redirect) {
-                    item.redirect = {name: item.children[0].name}
-                }
-            })  
+            // routeList.forEach(item => {
+            //     // 设置模块重定向到菜单
+            //     if (item.children?.length > 0 && !item.redirect) {
+            //         item.redirect = {name: item.children[0].name}
+            //     }
+            // })  
             const layout = routes.find(item => item.name == 'Layout')!
             layout.children = [
                 ...routeList

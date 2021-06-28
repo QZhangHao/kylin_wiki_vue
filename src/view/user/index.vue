@@ -1,6 +1,6 @@
 <template>
-	<Bar type="primary" postIcon="codicon:add" :onclick="addItem" :isShowDivider="true">创建</Bar>
-	<div class="search">
+	<Bar type="primary"  v-auth="'system:user:add'" postIcon="codicon:add" :onclick="addItem" :isShowDivider="true">创建</Bar>
+	<div class="search"  v-auth="'system:user:query'">
 		<a-form layout="inline" :model="formState">
 			<a-form-item label="用户名">
 				<a-input v-model:value="formState.userName" placeholder="请输入用户名"> </a-input>

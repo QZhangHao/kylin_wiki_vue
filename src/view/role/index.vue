@@ -1,5 +1,5 @@
 <template>
-	<Bar type="primary" postIcon="codicon:add" :onclick="addItem"  :isShowDivider="false">创建</Bar>
+	<Bar type="primary"  v-auth="'system:role:add'" postIcon="codicon:add" :onclick="addItem"  :isShowDivider="false">创建</Bar>
 	<div class="table-view">
 		<basic-table ref="tableRef" :columns="columns" :getListFunc="getListByPage" rowKey="roleID"> </basic-table>
 	</div>
@@ -53,11 +53,7 @@ const columns: TableColumn[] = [
 			{
 				type: 'popconfirm', // 控制类型，默认为a,可选： select | button | text
 				text: '删除',
-				permission: {
-					// 权限
-					action: 'delete',
-					effect: 'disabled',
-				},
+				permission: 'system:role:delete',
 				props: {
 					type: 'danger',
 				},
@@ -66,11 +62,7 @@ const columns: TableColumn[] = [
 			{
 				type: 'button', // 控制类型，默认为a,可选： select | button | text
 				text: '编辑',
-				permission: {
-					// 权限
-					action: 'update',
-					effect: 'disabled',
-				},
+				permission: 'system:role:edit',
 				props: {
 					type: 'primary',
 				},

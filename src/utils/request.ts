@@ -3,11 +3,13 @@ import axios, { AxiosRequestConfig } from 'axios'
 import router from '@/router'
 import store from '@/store'
 import qs from 'qs';
+import {useRouter, useRoute} from 'vue-router'
 import { Modal, message as MessageX, notification } from 'ant-design-vue'
 import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
 import { defineComponent, ref, createVNode } from 'vue';
 import { isString } from '@/utils/is';
-
+import {UserActionTypes} from "@/store/modules/user/actions";
+import {TABS_ROUTES} from "@/store/mutation-types";
 
 
 //配置axios
@@ -21,7 +23,7 @@ const service = axios.create({
 service.interceptors.request.use(
     (config) => {
         const isToken = (config.headers || {}).isToken === false
-        const token = store.state.user.token 
+        const token = store.state.user.token
         if (token && !isToken) {
             config.headers['Authorization'] = 'Bearer ' + token // 让每个请求携带自定义token 请根据实际情况自行修改
         }
@@ -36,10 +38,11 @@ service.interceptors.request.use(
 
 //添加响应拦截器
 service.interceptors.response.use(
-    (res) => {  
+    (res) => {
         const code = res.data.code || 200
         //获取错误信息
         const msg = res.data.message || '错误'
+
         if (code === 401) {
             Modal.confirm(
                 {
@@ -49,9 +52,17 @@ service.interceptors.response.use(
                     cancelText: '取消',
                     okText: '重新登录',
                     onOk() {
-                        store.dispatch('LogOut').then(() => {
-                            location.href = '/index';
+                        store.dispatch(UserActionTypes.Logout).then(res => { 
+                            // 移除标签页
+                            localStorage.removeItem(TABS_ROUTES)
+                            router.replace({
+                                name: 'login',
+                                query: {
+                                    redirect: useRoute().fullPath
+                                }
+                            }).finally(() => location.reload())
                         })
+                        location.href = '/login';
                     }
                 }
             )
@@ -71,7 +82,7 @@ service.interceptors.response.use(
             return res.data
         }
     },
-    (error) => { 
+    (error) => {
         console.log('err' + error)
         const err: string = error.toString()
         MessageX.error(err)

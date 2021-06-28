@@ -12,6 +12,7 @@
 		@change="paginationChange"
 		:childrenColumnName="childrenColumnName"
 		v-bind="{ ...$props, ...$attrs }"
+		:defaultExpandAllRows="defaultExpandAllRows"
 		:rowClassName="(record, index) => (index % 2 === 0 ? 'table-striped' : null)"
 	>
 		<!--    是否有自定义显示slots start-->
@@ -50,23 +51,23 @@
 					<template v-for="(action, index) in actions">
 						<template v-if="action.type == 'select'">
 							<!--              下拉选择器-->
-							<a-select v-model:value="slotProps.record[action.key]" :key="index" size="small">
+							<a-select  v-auth="action.permission"  v-model:value="slotProps.record[action.key]" :key="index" size="small">
 								<Option v-for="option in action.options" :value="option.value" :key="option.value">
 									{{ option.label }}
 								</Option>
 							</a-select>
 						</template>
 						<!--            编辑按钮-->
-						<template v-if="action.type == 'button'">
-							<a-button v-bind="{ ...buttonProps, ...action.props }" @click="actionEvent(slotProps.record, action.func)" :key="index">
+						<template v-if="action.type == 'button'">   
+							<a-button  v-auth="action.permission"  v-bind="{ ...buttonProps, ...action.props }" @click="actionEvent(slotProps.record, action.func)" :key="index">
 								{{ action.text }}
 							</a-button>
 						</template>
 						<!--            删除按钮 气泡确认框-->
 						<template v-if="action.type == 'popconfirm'">
-							<a-popconfirm :key="index" placement="leftTop" @confirm="actionEvent(slotProps.record, action.func, 'del')">
+							<a-popconfirm  :key="index" placement="leftTop" @confirm="actionEvent(slotProps.record, action.func, 'del')">
 								<template v-slot:title> 您确定要删除吗？ </template>
-								<a-button v-bind="{ ...buttonProps, ...action.props }">
+								<a-button  v-auth="action.permission"  v-bind="{ ...buttonProps, ...action.props }">
 									{{ action.text }}
 								</a-button>
 							</a-popconfirm>
@@ -116,6 +117,10 @@ export default defineComponent({
 			type: Object as PropType<pageOption>,
 			default: () => ({}),
 		},
+		defaultExpandAllRows:{
+			type:Boolean,
+			default:false,
+		}
 	},
 	components: {
 		[Table.name]: Table,
@@ -138,7 +143,9 @@ export default defineComponent({
 			actions: props.columns.find((item) => (item.dataIndex || item.key) == 'action')?.actions || [], //表格操作
 			loading: false, //表格加载
 			childrenColumnName: props.childrenColumnName ?? 'children',
+			defaultExpandAllRows:props.defaultExpandAllRows??false,
 		});
+		console.log(props.pageOption)
 
 		//刷新表格
 		const refreshTableData = async (params = {}) => {

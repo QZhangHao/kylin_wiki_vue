@@ -14,10 +14,14 @@ export function usePermission() {
         // Visible by default
         if (!value) {
           return def;
+        } 
+        if(userStore.getters.userInfo.roles?.includes('系统管理员')){
+          return true
         }
-        if (!isArray(value)) { 
+        if (!isArray(value)) {  
           return userStore.getters.userInfo.auth?.includes(value);
         }
+        
         return (intersection(value, userStore.getters.userInfo.auth)).length > 0; 
    
       return true;

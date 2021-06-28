@@ -1,7 +1,8 @@
 <template>
-	<Bar type="primary" postIcon="codicon:add" :onclick="addItem" :isShowDivider="false">创建</Bar>
+	<Bar type="primary"  v-auth="'system:menu:add'" postIcon="codicon:add" :onclick="addItem" :isShowDivider="false">创建</Bar>
 	<div class="table-view">
-		<basic-table ref="tableRef" :columns="columns" :getListFunc="getListByPage" rowKey="menuID" childrenColumnName="childList"> </basic-table>
+		<basic-table ref="tableRef" :columns="columns" :pageOption="pageOption" :defaultExpandAllRows="true" :getListFunc="getListByPage" rowKey="menuID" childrenColumnName="childList">
+		</basic-table>
 	</div>
 </template>
 
@@ -12,7 +13,7 @@ import { Bar } from '@/components/bar';
 import { BasicTable } from '@/components/basicTable';
 import { getListByPage, deleteMenu, updateMenu, createMenu } from '@/api/menu';
 import { TableColumn } from '@/hooks/tableColumn';
-import { formatDate } from '@/utils/common'; 
+import { formatDate } from '@/utils/common';
 import Icon from '@/components/Icon';
 import { Tag } from 'ant-design-vue';
 import AddModal from './add-modal.vue';
@@ -84,11 +85,7 @@ const columns: TableColumn[] = [
 			{
 				type: 'popconfirm', // 控制类型，默认为a,可选： select | button | text
 				text: '删除',
-				permission: {
-					// 权限
-					action: 'delete',
-					effect: 'disabled',
-				},
+				permission: 'system:menu:delete',
 				props: {
 					type: 'danger',
 				},
@@ -97,11 +94,7 @@ const columns: TableColumn[] = [
 			{
 				type: 'button', // 控制类型，默认为a,可选： select | button | text
 				text: '编辑',
-				permission: {
-					// 权限
-					action: 'update',
-					effect: 'disabled',
-				},
+				permission: 'system:menu:edit',//权限
 				props: {
 					type: 'primary',
 				},
@@ -128,6 +121,9 @@ export default defineComponent({
 				},
 				selectedRowKeys: [],
 			},
+			pageOption:{
+				pageSize:2000
+			}
 		});
 
 		// 添加账号
@@ -137,7 +133,7 @@ export default defineComponent({
 					tableRef.value.refreshTableData();
 				},
 			});
-		};
+		}; 
 
 		return {
 			...toRefs(state),

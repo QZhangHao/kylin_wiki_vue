@@ -84,6 +84,7 @@ export default defineComponent({
 			menuType: 'M',
 			meta: {
 				icon: '',
+				auth:''
 			},
 			menuName: '',
 			path: '',
@@ -151,7 +152,7 @@ export default defineComponent({
 						IsKeepAlive: false,
 						IsHide: false,
 						Icon: data.meta.icon,
-						Auth: ['admin'],
+						Auth: data.meta.auth.includes(',')?data.meta.auth.split(','):data.meta.auth,
 					};
 					const params = Object.assign(data,{meta:JSON.stringify(meta)})
 					await (id ? updateMenu(params) : createMenu(params)).finally(() => (state.confirmLoading = false));

@@ -9,16 +9,22 @@
 
 			<!--      侧边菜单栏end-->
 		</a-layout-sider>
-		<a-layout>
+		<a-layout style="width:100%" >
 			<!--      页头 start-->
 			<page-header v-model:collapsed="collapsed" />
 			<!--      页头end-->
 			<!--      内容区域start-->
 			<a-layout-content class="layout-content">
-			<tabs-view />
+				<div class="view-content">
+					<router-view v-slot="{ Component }">
+						<keep-alive>
+							<component :is="Component" />
+						</keep-alive>
+					</router-view>
+				</div>
 			</a-layout-content>
 			<!--      内容区域end-->
-			<!--      页脚start--> 
+			<!--      页脚start-->
 			<Footer />
 			<!--      页脚end-->
 		</a-layout>
@@ -33,7 +39,6 @@ import { TabsView } from './tabs';
 import AsideMenu from './menu/menu.vue';
 import PageHeader from './header/index.vue';
 import Footer from './footer/index.vue';
-
 
 export default defineComponent({
 	name: 'Layout',
@@ -80,6 +85,12 @@ export default defineComponent({
 
 	.layout-content {
 		flex: none;
+		border-bottom: 1px solid #eee;
+		.view-content {
+			padding: 12px;
+			height: calc(100vh - 90px);
+			overflow: auto;
+		}
 	}
 }
 </style>

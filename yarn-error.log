@@ -1,8 +1,8 @@
 Arguments: 
-  D:\Software\NodeJs\node.exe D:\Software\NodeJs\node_modules\yarn\bin\yarn.js add purge-icons/generated dev
+  D:\Software\NodeJs\node.exe D:\Software\NodeJs\node_modules\yarn\bin\yarn.js add @kangc/v-md-editor@next
 
 PATH: 
-  C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files\Microsoft SQL Server\110\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn\ManagementStudio\;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\PrivateAssemblies\;C:\Program Files (x86)\Microsoft SQL Server\110\DTS\Binn\;D:\Software\NodeJs\;D:\Software\Git\cmd;"D:\Java Dev\Java\bin;D:\Java Dev\Java\jre\bin;";D:\Java Dev\apache-maven-3.6.3\bin;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;D:\Software\Python\Scripts\;D:\Software\Python\;C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps;;D:\Software\Microsoft VS Code\bin;C:\Users\Administrator\.dotnet\tools;C:\Users\Administrator\AppData\Roaming\npm;D:\Software\Bandizip\;C:\Users\Administrator\.dotnet\tools
+  C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files\Microsoft SQL Server\110\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn\ManagementStudio\;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\PrivateAssemblies\;C:\Program Files (x86)\Microsoft SQL Server\110\DTS\Binn\;D:\Software\NodeJs\;D:\Software\Git\cmd;"D:\Java Dev\Java\bin;D:\Java Dev\Java\jre\bin;";D:\Java Dev\apache-maven-3.6.3\bin;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;D:\Software\Xshell\;D:\Software\Python\Scripts\;D:\Software\Python\;C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps;;D:\Software\Microsoft VS Code\bin;C:\Users\Administrator\.dotnet\tools;C:\Users\Administrator\AppData\Roaming\npm;D:\Software\Bandizip\;C:\Users\Administrator\.dotnet\tools
 
 Yarn version: 
   1.22.10
@@ -14,8 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: connect ETIMEDOUT 192.30.253.113:443
-      at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1129:14)
+  Error: ENOENT: no such file or directory, copyfile 'C:\Users\Administrator\AppData\Local\Yarn\Cache\v6\npm-yallist-3.1.1-dbb7daf9bfd8bac9ab45ebf602b8cbad0d5d08fd-integrity\node_modules\yallist\LICENSE' -> 'E:\netcore\Kylin.Wiki.Vue\node_modules\@vue\compiler-sfc\node_modules\yallist\LICENSE'
 
 npm manifest: 
   {
@@ -29,13 +28,16 @@ npm manifest:
     "dependencies": {
       "ant-design-vue": "^2.1.2",
       "axios": "^0.21.1",
+      "dayjs": "^1.10.4",
       "nprogress": "^0.2.0",
       "qs": "^6.10.1",
+      "vditor": "^3.8.5",
       "vue": "^3.0.5",
       "vue-router": "^4.0.6",
       "vuex": "^4.0.0"
     },
     "devDependencies": {
+      "@iconify/json": "^1.1.334",
       "@types/nprogress": "^0.2.0",
       "@typescript-eslint/eslint-plugin": "^4.22.0",
       "@typescript-eslint/parser": "^4.22.0",
@@ -47,11 +49,13 @@ npm manifest:
       "eslint-plugin-prettier": "^3.3.1",
       "eslint-plugin-vue": "^7.9.0",
       "less": "^4.1.1",
+      "less-loader": "^9.0.0",
       "prettier": "^2.2.1",
       "sass": "^1.32.10",
       "typescript": "^4.1.3",
       "vite": "^2.1.5",
       "vite-plugin-imp": "^2.0.7",
+      "vite-plugin-purge-icons": "^0.7.0",
       "vite-plugin-style-import": "^0.9.2",
       "vue-tsc": "^0.0.15"
     }
@@ -374,6 +378,25 @@ Lockfile:
       minimatch "^3.0.4"
       strip-json-comments "^3.1.1"
   
+  "@iconify/iconify@2.0.0-rc.6":
+    version "2.0.0-rc.6"
+    resolved "https://registry.nlark.com/@iconify/iconify/download/@iconify/iconify-2.0.0-rc.6.tgz#e3f5376b63b441dcb3696317784b98e2e678cf46"
+    integrity sha1-4/U3a2O0QdyzaWMXeEuY4uZ4z0Y=
+    dependencies:
+      cross-fetch "^3.0.6"
+  
+  "@iconify/iconify@>=2.0.0-rc.6":
+    version "2.0.1"
+    resolved "https://registry.nlark.com/@iconify/iconify/download/@iconify/iconify-2.0.1.tgz#4927812922d50b378699694b5e72e22a1acc9d2f"
+    integrity sha1-SSeBKSLVCzeGmWlLXnLiKhrMnS8=
+    dependencies:
+      cross-fetch "^3.0.6"
+  
+  "@iconify/json@^1.1.334":
+    version "1.1.345"
+    resolved "https://registry.nlark.com/@iconify/json/download/@iconify/json-1.1.345.tgz#98f5139cf6fd146b45d38fce267b031d1e1f0e7d"
+    integrity sha1-mPUTnPb9FGtF04/OJnsDHR4fDn0=
+  
   "@intlify/core-base@9.1.6":
     version "9.1.6"
     resolved "https://registry.npm.taobao.org/@intlify/core-base/download/@intlify/core-base-9.1.6.tgz#887fbeafe37d955bac50318f30ac589839f0d9fb"
@@ -457,6 +480,24 @@ Lockfile:
     dependencies:
       "@nodelib/fs.scandir" "2.1.4"
       fastq "^1.6.0"
+  
+  "@purge-icons/core@^0.7.0":
+    version "0.7.0"
+    resolved "https://registry.npm.taobao.org/@purge-icons/core/download/@purge-icons/core-0.7.0.tgz#097ba8d4d8b7e8d662df687bd2391eb8b83caba0"
+    integrity sha1-CXuo1Ni36NZi32h70jkeuLg8q6A=
+    dependencies:
+      "@iconify/iconify" "2.0.0-rc.6"
+      axios "^0.21.1"
+      debug "^4.3.2"
+      fast-glob "^3.2.5"
+      fs-extra "^9.1.0"
+  
+  "@purge-icons/generated@^0.7.0":
+    version "0.7.0"
+    resolved "https://registry.npm.taobao.org/@purge-icons/generated/download/@purge-icons/generated-0.7.0.tgz#d87dbb3145e8b9a64e2e12ff660aa3cb13cbeb56"
+    integrity sha1-2H27MUXouaZOLhL/ZgqjyxPL61Y=
+    dependencies:
+      "@iconify/iconify" ">=2.0.0-rc.6"
   
   "@rollup/pluginutils@^4.1.0":
     version "4.1.0"
@@ -941,6 +982,11 @@ Lockfile:
     resolved "https://registry.npm.taobao.org/async-validator/download/async-validator-3.5.1.tgz#cd62b9688b2465f48420e27adb47760ab1b5559f"
     integrity sha1-zWK5aIskZfSEIOJ620d2CrG1VZ8=
   
+  at-least-node@^1.0.0:
+    version "1.0.0"
+    resolved "https://registry.npm.taobao.org/at-least-node/download/at-least-node-1.0.0.tgz#602cd4b46e844ad4effc92a8011a3c46e0238dc2"
+    integrity sha1-YCzUtG6EStTv/JKoARo8RuAjjcI=
+  
   axios@^0.21.1:
     version "0.21.1"
     resolved "https://registry.npm.taobao.org/axios/download/axios-0.21.1.tgz#22563481962f4d6bde9a76d516ef0e5d3c09b2b8"
@@ -1232,6 +1278,13 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
     integrity sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=
   
+  cross-fetch@^3.0.6:
+    version "3.1.4"
+    resolved "https://registry.npm.taobao.org/cross-fetch/download/cross-fetch-3.1.4.tgz?cache=0&sync_timestamp=1617418025848&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcross-fetch%2Fdownload%2Fcross-fetch-3.1.4.tgz#9723f3a3a247bf8b89039f3a380a9244e8fa2f39"
+    integrity sha1-lyPzo6JHv4uJA586OAqSROj6Lzk=
+    dependencies:
+      node-fetch "2.6.1"
+  
   cross-spawn@^7.0.2:
     version "7.0.3"
     resolved "https://registry.npm.taobao.org/cross-spawn/download/cross-spawn-7.0.3.tgz#f73a85b9d5d41d045551c177e2882d4ac85728a6"
@@ -1250,6 +1303,11 @@ Lockfile:
     version "2.6.16"
     resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.16.tgz#544d69f547013b85a40d15bff75db38f34fe9c39"
     integrity sha512-61FBWoDHp/gRtsoDkq/B1nWrCUG/ok1E3tUrcNbZjsE9Cxd9yzUirjS3+nAATB8U4cTtaQmAHbNndoFz5L6C9Q==
+  
+  dayjs@^1.10.4:
+    version "1.10.4"
+    resolved "https://registry.npm.taobao.org/dayjs/download/dayjs-1.10.4.tgz?cache=0&sync_timestamp=1611310296262&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fdayjs%2Fdownload%2Fdayjs-1.10.4.tgz#8e544a9b8683f61783f570980a8a80eaf54ab1e2"
+    integrity sha1-jlRKm4aD9heD9XCYCoqA6vVKseI=
   
   de-indent@^1.0.2:
     version "1.0.2"
@@ -1527,7 +1585,7 @@ Lockfile:
     resolved "https://registry.npm.taobao.org/fast-diff/download/fast-diff-1.2.0.tgz#73ee11982d86caaf7959828d519cfe927fac5f03"
     integrity sha1-c+4RmC2Gyq95WYKNUZz+kn+sXwM=
   
-  fast-glob@^3.1.1, fast-glob@^3.2.4:
+  fast-glob@^3.1.1, fast-glob@^3.2.4, fast-glob@^3.2.5:
     version "3.2.5"
     resolved "https://registry.npm.taobao.org/fast-glob/download/fast-glob-3.2.5.tgz#7939af2a656de79a4f1901903ee8adcaa7cb9661"
     integrity sha1-eTmvKmVt55pPGQGQPuityqfLlmE=
@@ -1587,6 +1645,16 @@ Lockfile:
     version "1.13.3"
     resolved "https://registry.npm.taobao.org/follow-redirects/download/follow-redirects-1.13.3.tgz?cache=0&sync_timestamp=1614436958094&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ffollow-redirects%2Fdownload%2Ffollow-redirects-1.13.3.tgz#e5598ad50174c1bc4e872301e82ac2cd97f90267"
     integrity sha1-5VmK1QF0wbxOhyMB6CrCzZf5Amc=
+  
+  fs-extra@^9.1.0:
+    version "9.1.0"
+    resolved "https://registry.nlark.com/fs-extra/download/fs-extra-9.1.0.tgz#5954460c764a8da2094ba3554bf839e6b9a7c86d"
+    integrity sha1-WVRGDHZKjaIJS6NVS/g55rmnyG0=
+    dependencies:
+      at-least-node "^1.0.0"
+      graceful-fs "^4.2.0"
+      jsonfile "^6.0.1"
+      universalify "^2.0.0"
   
   fs.realpath@^1.0.0:
     version "1.0.0"
@@ -1694,7 +1762,7 @@ Lockfile:
       merge2 "^1.3.0"
       slash "^3.0.0"
   
-  graceful-fs@^4.1.2, graceful-fs@^4.2.2:
+  graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.2.0, graceful-fs@^4.2.2:
     version "4.2.6"
     resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.6.tgz#ff040b2b0853b23c3d31027523706f1885d76bee"
     integrity sha512-nTnJ528pbqxYanhpDYsi4Rd8MAeaBA67+RZ10CM1m3bTAVFEDcd5AuA4a6W5YkGZ1iNXHzZz8T6TBKLeBuNriQ==
@@ -1935,6 +2003,27 @@ Lockfile:
     dependencies:
       minimist "^1.2.5"
   
+  jsonfile@^6.0.1:
+    version "6.1.0"
+    resolved "https://registry.npm.taobao.org/jsonfile/download/jsonfile-6.1.0.tgz?cache=0&sync_timestamp=1604161822397&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fjsonfile%2Fdownload%2Fjsonfile-6.1.0.tgz#bc55b2634793c679ec6403094eb13698a6ec0aae"
+    integrity sha1-vFWyY0eTxnnsZAMJTrE2mKbsCq4=
+    dependencies:
+      universalify "^2.0.0"
+    optionalDependencies:
+      graceful-fs "^4.1.6"
+  
+  klona@^2.0.4:
+    version "2.0.4"
+    resolved "https://registry.nlark.com/klona/download/klona-2.0.4.tgz#7bb1e3affb0cb8624547ef7e8f6708ea2e39dfc0"
+    integrity sha1-e7Hjr/sMuGJFR+9+j2cI6i4538A=
+  
+  less-loader@^9.0.0:
+    version "9.0.0"
+    resolved "https://registry.nlark.com/less-loader/download/less-loader-9.0.0.tgz#71a0b530174bddf89bb11a5019dd725f54df4791"
+    integrity sha1-caC1MBdL3fibsRpQGd1yX1TfR5E=
+    dependencies:
+      klona "^2.0.4"
+  
   less@^4.1.1:
     version "4.1.1"
     resolved "https://registry.npm.taobao.org/less/download/less-4.1.1.tgz#15bf253a9939791dc690888c3ff424f3e6c7edba"
@@ -2151,6 +2240,11 @@ Lockfile:
     dependencies:
       lower-case "^2.0.2"
       tslib "^2.0.3"
+  
+  node-fetch@2.6.1:
+    version "2.6.1"
+    resolved "https://registry.npm.taobao.org/node-fetch/download/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
+    integrity sha1-BFvTI2Mfdu0uK1VXM5RBa2OaAFI=
   
   node-releases@^1.1.71:
     version "1.1.71"
@@ -2488,6 +2582,14 @@ Lockfile:
     dependencies:
       glob "^7.1.3"
   
+  rollup-plugin-purge-icons@^0.7.0:
+    version "0.7.0"
+    resolved "https://registry.npm.taobao.org/rollup-plugin-purge-icons/download/rollup-plugin-purge-icons-0.7.0.tgz#4419b810d5d75f1bba3af72a238e70b4a675f03c"
+    integrity sha1-RBm4ENXXXxu6OvcqI45wtKZ18Dw=
+    dependencies:
+      "@purge-icons/core" "^0.7.0"
+      "@purge-icons/generated" "^0.7.0"
+  
   rollup@^2.38.5:
     version "2.45.2"
     resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.45.2.tgz#8fb85917c9f35605720e92328f3ccbfba6f78b48"
@@ -2772,6 +2874,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/uniq/-/uniq-1.0.1.tgz#b31c5ae8254844a3a8281541ce2b04b865a734ff"
     integrity sha1-sxxa6CVIRKOoKBVBzisEuGWnNP8=
   
+  universalify@^2.0.0:
+    version "2.0.0"
+    resolved "https://registry.npm.taobao.org/universalify/download/universalify-2.0.0.tgz#75a4984efedc4b08975c5aeb73f530d02df25717"
+    integrity sha1-daSYTv7cSwiXXFrrc/Uw0C3yVxc=
+  
   unzipper@0.10.11:
     version "0.10.11"
     resolved "https://registry.yarnpkg.com/unzipper/-/unzipper-0.10.11.tgz#0b4991446472cbdb92ee7403909f26c2419c782e"
@@ -2840,6 +2947,15 @@ Lockfile:
       "@babel/traverse" "^7.12.12"
       chalk "^4.1.0"
       param-case "^3.0.4"
+  
+  vite-plugin-purge-icons@^0.7.0:
+    version "0.7.0"
+    resolved "https://registry.npm.taobao.org/vite-plugin-purge-icons/download/vite-plugin-purge-icons-0.7.0.tgz#c460037438fd71372153360ccb9e7d97b030fb58"
+    integrity sha1-xGADdDj9cTchUzYMy559l7Aw+1g=
+    dependencies:
+      "@purge-icons/core" "^0.7.0"
+      "@purge-icons/generated" "^0.7.0"
+      rollup-plugin-purge-icons "^0.7.0"
   
   vite-plugin-style-import@^0.9.2:
     version "0.9.2"

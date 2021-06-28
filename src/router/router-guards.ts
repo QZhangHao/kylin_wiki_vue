@@ -25,7 +25,7 @@ const isGetMenus = debounce(({to, from, next, hasRoute}) => {
 
         if (!hasRoute) {
             // 请求带有 redirect 重定向时，登录自动重定向到该地址
-            const redirect = decodeURIComponent((from.query.redirect || '') as string)
+            const redirect = decodeURIComponent((from.query.redirect || '') as string) 
             if (to.path === redirect) {
                 next({...to, replace: true})
             } else {
@@ -50,7 +50,7 @@ export function createRouterGuards(router: Router) {
                 // 如果不需要每次切换路由获取最新的动态路由，可把下面注释放开
                 // if (store.getters.menus.length === 0) {
                 // generate dynamic router
-                // 防抖获取菜单
+                // 防抖获取菜单    
                 isGetMenus({to, from, next, hasRoute})
 
                 if (whiteList.includes(to.name as string) || hasRoute) {

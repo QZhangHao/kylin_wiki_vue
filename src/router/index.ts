@@ -1,5 +1,5 @@
 import { App } from "vue";
-import { createRouter, createWebHashHistory, Router, RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHashHistory, Router, RouteRecordRaw,createWebHistory } from "vue-router";
 import { createRouterGuards } from './router-guards';
 
 //定义静态路由
@@ -31,7 +31,7 @@ export const routes: Array<RouteRecordRaw> = [
 
 // 添加静态路由
 const router = createRouter({
-	history: createWebHashHistory(''),
+	history: createWebHistory(''),
 	routes,
 });
 
