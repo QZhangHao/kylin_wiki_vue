@@ -1,7 +1,7 @@
 <template>
 	<template v-if="!menuInfo.meta.isHide">
 		<template v-if="menuInfo.children?.length">
-			<a-menu-item v-if="menuInfo.children.filter((x) => x.meta.isHide)[0]?.meta.isHide" :key="menuInfo.name">
+			<a-menu-item v-if="menuInfo.children.filter((x) => x.meta.isHide)[0]?.meta.isHide" :key="menuInfo.name" >
 				<icon style="color: aliceblue" :icon="menuInfo.meta.icon" />
 				<span>{{ menuInfo.meta.title }}</span>
 			</a-menu-item>

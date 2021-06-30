@@ -1,12 +1,12 @@
 <template>
 	<div class="tabs-view">
 		<a-tabs v-model:activeKey="activeKey" hide-add type="editable-card" class="tabs" @change="changePage" @edit="editTabItem">
-			<template v-for="(pageItem, index) in tabsList" :key="pageItem.fullPath"> 
+			<template v-for="(pageItem, index) in tabsList" :key="pageItem.fullPath">
 				<a-tab-pane>
 					<template #tab>
 						<a-dropdown :trigger="['contextmenu']">
 							<div style="display: inline-block">
-								{{ pageItem.meta.title }} 
+								{{ pageItem.meta.title }}
 							</div>
 							<template #overlay>
 								<a-menu style="user-select: none">
@@ -15,7 +15,7 @@
 										刷新
 									</a-menu-item>
 									<a-menu-item key="2" @click="removeTab(pageItem)">
-										<close-outlined  />
+										<close-outlined />
 										关闭
 									</a-menu-item>
 									<a-menu-divider />
@@ -47,7 +47,7 @@
 			<template #tabBarExtraContent>
 				<a-dropdown :trigger="['click']">
 					<a class="ant-dropdown-link" @click.prevent>
-						<down-outlined :style="{ fontSize: '20px'}" />
+						<down-outlined :style="{ fontSize: '20px' }" />
 					</a>
 					<template #overlay>
 						<a-menu style="user-select: none">
@@ -73,188 +73,197 @@
 				</a-dropdown>
 			</template>
 		</a-tabs>
-		<div class="tabs-view-content">  
-				<router-view v-slot="{ Component }"> 
-					<keep-alive>
-						<component :is="Component" />
-					</keep-alive>
-				</router-view> 
+		<div class="tabs-view-content">
+			<router-view v-slot="{ Component }">
+				<keep-alive>
+					<component :is="Component" />
+				</keep-alive>
+			</router-view>
 		</div>
 	</div>
 </template>
 
 
 <script lang="ts">
-import { defineComponent, reactive, computed, toRefs, unref, provide, watch } from "vue";
-import { RouteRecord, useRoute, useRouter } from "vue-router";
-import components from "@/layout/tabs/components";
-import { storage } from "@/utils/Storage";
-import { TABS_ROUTES } from "@/store/mutation-types";
-import store, { useStore } from "@/store";
-import { RouteItem } from "@/store/modules/tab-view/state";
-import { TabsViewMutationType } from "@/store/modules/tab-view/mutation";
+import { defineComponent, reactive, computed, toRefs, unref, provide, watch } from 'vue';
+import { RouteRecord, useRoute, useRouter } from 'vue-router';
+import components from '@/layout/tabs/components';
+import { storage } from '@/utils/Storage';
+import { TABS_ROUTES } from '@/store/mutation-types';
+import store, { useStore } from '@/store';
+import { RouteItem } from '@/store/modules/tab-view/state';
+import { TabsViewMutationType } from '@/store/modules/tab-view/mutation';
 
-import { message } from "ant-design-vue";
+import { message } from 'ant-design-vue';
 
 export default defineComponent({
-  name: "TabsView",
-  components: {
-    ...components
-  },
-  setup() {
-    const route = useRoute();
-    const router = useRouter();
-    const store = useStore();
-    // const tabsViewMutations = mapMutations(['addTabs','closeLeftTabs','closeRightTabs','closeOtherTabs','initTabs','closeCurrentTabs','closeAllTabs'])
-    
-    // 获取简易的路由对象
-    const getSimpleRoute = (route): RouteItem => {
-      const { fullPath, hash, meta, name, params, path, query } = route;
-      return { fullPath, hash, meta, name, params, path, query };
-    };
+	name: 'TabsView',
+	components: {
+		...components,
+	},
+	setup() {
+		const route = useRoute();
+		const router = useRouter();
+		const store = useStore();
+		// const tabsViewMutations = mapMutations(['addTabs','closeLeftTabs','closeRightTabs','closeOtherTabs','initTabs','closeCurrentTabs','closeAllTabs'])
 
-    let routes: RouteItem[] = [];
+		// 获取简易的路由对象
+		const getSimpleRoute = (route): RouteItem => {
+			const { fullPath, hash, meta, name, params, path, query } = route;
+			return { fullPath, hash, meta, name, params, path, query };
+		};
 
-    try {
-      const routesStr = storage.get(TABS_ROUTES) as string | null | undefined;
-      routes = routesStr ? JSON.parse(routesStr) : [getSimpleRoute(route)];
-    } catch (e) {
-      routes = [getSimpleRoute(route)];
-    }
+		let routes: RouteItem[] = [];
 
-    // 初始化标签页
-    store.commit(TabsViewMutationType.InitTabs, routes);
-    // tabsViewMutations.initTabs(routes)
+		try {
+			const routesStr = storage.get(TABS_ROUTES) as string | null | undefined;
+			routes = routesStr ? JSON.parse(routesStr) : [getSimpleRoute(route)];
+		} catch (e) {
+			routes = [getSimpleRoute(route)];
+		}
 
-    const state = reactive({
-      activeKey: route.fullPath
-    });
+		// 初始化标签页
+		store.commit(TabsViewMutationType.InitTabs, routes);
+		// tabsViewMutations.initTabs(routes)
 
-    // 移除缓存组件名称
-    const delKeepAliveCompName = () => {
-      if (route.meta.keepAlive) {
-        const name = router.currentRoute.value.matched.find(item => item.name == route.name)?.components?.default.name
-        if (name) {
-          store.state.asyncRoute.keepAliveComponents = store.state.asyncRoute.keepAliveComponents.filter(item => item != name)
-		
-        }
-      }
-    } 
+		const state = reactive({
+			activeKey: route.fullPath,
+		});
 
-    // 标签页列表
-    const tabsList = computed(() => store.state.tabsView.tabsList); 
+		// 移除缓存组件名称
+		const delKeepAliveCompName = () => {
+			if (route.meta.keepAlive) {
+				const name = router.currentRoute.value.matched.find((item) => item.name == route.name)?.components?.default.name;
+				if (name) {
+					store.state.asyncRoute.keepAliveComponents = store.state.asyncRoute.keepAliveComponents.filter((item) => item != name);
+				}
+			}
+		};
 
-    watch(() => route.fullPath, () => {
-      // 不存在的路由
-      const notFondRoutes: string[] = [];
-      tabsList.value.forEach(item => {
-        if (!router.hasRoute(item.name)) {
-          notFondRoutes.push(item.name);
-        }
-      });
-      // 过滤不存在的路由
-      if (notFondRoutes.length) {
-        store.commit(TabsViewMutationType.InitTabs, tabsList.value.filter(item => !notFondRoutes.includes(item.name)));
-      }
-    });
+		// 标签页列表
+		const tabsList = computed(() => store.state.tabsView.tabsList);
 
-    const whiteList = ["Redirect", "login"];
+		watch(
+			() => route.fullPath,
+			() => {
+				// 不存在的路由
+				const notFondRoutes: string[] = [];
+				tabsList.value.forEach((item) => {
+					if (!router.hasRoute(item.name)) {
+						notFondRoutes.push(item.name);
+					}
+				});
+				// 过滤不存在的路由
+				if (notFondRoutes.length) {
+					store.commit(
+						TabsViewMutationType.InitTabs,
+						tabsList.value.filter((item) => !notFondRoutes.includes(item.name))
+					);
+				}
+			}
+		);
 
-    watch(() => route.fullPath, (to, from) => {
-      if (whiteList.includes(route.name as string)) return;
-      state.activeKey = to;
-      // tabsViewMutations.addTabs(getSimpleRoute(route))
-      store.commit(TabsViewMutationType.AddTabs, getSimpleRoute(route));
-    }, { immediate: true });
+		const whiteList = ['Redirect', 'login'];
 
-    // 在页面关闭或刷新之前，保存数据
-    window.addEventListener("beforeunload", () => {
-      storage.set(TABS_ROUTES, JSON.stringify(tabsList.value));
-    });
+		watch(
+			() => route.fullPath,
+			(to, from) => {
+				if (whiteList.includes(route.name as string)) return;
+				state.activeKey = to;
+				// tabsViewMutations.addTabs(getSimpleRoute(route))
+				store.commit(TabsViewMutationType.AddTabs, getSimpleRoute(route));
+			},
+			{ immediate: true }
+		);
 
-    // 关闭当前页面
-    const removeTab = (route) => {
-      if (tabsList.value.length === 1) {
-        return message.warning("这已经是最后一页，不能再关闭了！");
-      }
-      delKeepAliveCompName()
-      // tabsViewMutations.closeCurrentTabs(route)
-      store.commit(TabsViewMutationType.CloseCurrentTabs, route);
-      // 如果关闭的是当前页
-      if (state.activeKey === route.fullPath) {
-        const currentRoute = tabsList.value[Math.max(0, tabsList.value.length - 1)];
-        state.activeKey = currentRoute.fullPath;
-        router.push(currentRoute);
-      }
-    };
-    // tabs 编辑（remove || add）
-    const editTabItem = (targetKey, action: string) => {
-      if (action == "remove") {
-        removeTab(tabsList.value.find(item => item.fullPath == targetKey));
-      }
-    };
-    // 切换页面
-    const changePage = (key) => {
-      state.activeKey = key;
-      router.push(key);
-    };
+		// 在页面关闭或刷新之前，保存数据
+		window.addEventListener('beforeunload', () => {
+			storage.set(TABS_ROUTES, JSON.stringify(tabsList.value));
+		});
 
-    // 刷新页面
-    const reloadPage = () => {
-      delKeepAliveCompName()
-      router.push({
-        path: "/redirect" + unref(route).fullPath
-      });
-    };
-    // 注入刷新页面方法
-    provide("reloadPage", reloadPage);
+		// 关闭当前页面
+		const removeTab = (route) => {
+			if (tabsList.value.length === 1) {
+				return message.warning('这已经是最后一页，不能再关闭了！');
+			}
+			delKeepAliveCompName();
+			// tabsViewMutations.closeCurrentTabs(route)
+			store.commit(TabsViewMutationType.CloseCurrentTabs, route);
+			// 如果关闭的是当前页
+			if (state.activeKey === route.fullPath) {
+				const currentRoute = tabsList.value[Math.max(0, tabsList.value.length - 1)];
+				state.activeKey = currentRoute.fullPath;
+				router.push(currentRoute);
+			}
+		};
+		// tabs 编辑（remove || add）
+		const editTabItem = (targetKey, action: string) => {
+			if (action == 'remove') {
+				removeTab(tabsList.value.find((item) => item.fullPath == targetKey));
+			}
+		};
+		// 切换页面
+		const changePage = (key) => {
+			state.activeKey = key;
+			router.push(key);
+		};
 
-    // 关闭左侧
-    const closeLeft = (route, index) => {
-      // tabsViewMutations.closeLeftTabs(route)
-      store.commit(TabsViewMutationType.CloseLeftTabs, route);
-      state.activeKey = route.fullPath;
-      router.replace(route.fullPath);
-    };
+		// 刷新页面
+		const reloadPage = () => {
+			delKeepAliveCompName();
+			router.push({
+				path: '/redirect' + unref(route).fullPath,
+			});
+		};
+		// 注入刷新页面方法
+		provide('reloadPage', reloadPage);
 
-    // 关闭右侧
-    const closeRight = (route, index) => {
-      // tabsViewMutations.closeRightTabs(route)
-      store.commit(TabsViewMutationType.CloseRightTabs, route);
-      state.activeKey = route.fullPath;
-      router.replace(route.fullPath);
-    };
+		// 关闭左侧
+		const closeLeft = (route, index) => {
+			// tabsViewMutations.closeLeftTabs(route)
+			store.commit(TabsViewMutationType.CloseLeftTabs, route);
+			state.activeKey = route.fullPath;
+			router.replace(route.fullPath);
+		};
 
-    // 关闭其他
-    const closeOther = (route) => {
-      // tabsViewMutations.closeOtherTabs(route)
-      store.commit(TabsViewMutationType.CloseOtherTabs, route);
-      state.activeKey = route.fullPath;
-      router.replace(route.fullPath);
-    };
+		// 关闭右侧
+		const closeRight = (route, index) => {
+			// tabsViewMutations.closeRightTabs(route)
+			store.commit(TabsViewMutationType.CloseRightTabs, route);
+			state.activeKey = route.fullPath;
+			router.replace(route.fullPath);
+		};
 
-    // 关闭全部
-    const closeAll = () => {
-      localStorage.removeItem("routes");
-      // tabsViewMutations.closeAllTabs()
-      store.commit(TabsViewMutationType.CloseAllTabs);
-      router.replace("/");
-    };
+		// 关闭其他
+		const closeOther = (route) => {
+			// tabsViewMutations.closeOtherTabs(route)
+			store.commit(TabsViewMutationType.CloseOtherTabs, route);
+			state.activeKey = route.fullPath;
+			router.replace(route.fullPath);
+		};
 
-    return {
-      ...toRefs(state),
-      route,
-      tabsList,
-      changePage,
-      editTabItem,
-      removeTab,
-      closeLeft,
-      closeRight,
-      closeOther,
-      closeAll,
-      reloadPage
-    };
-  }
+		// 关闭全部
+		const closeAll = () => {
+			localStorage.removeItem('routes');
+			// tabsViewMutations.closeAllTabs()
+			store.commit(TabsViewMutationType.CloseAllTabs);
+			router.replace('/');
+		};
+
+		return {
+			...toRefs(state),
+			route,
+			tabsList,
+			changePage,
+			editTabItem,
+			removeTab,
+			closeLeft,
+			closeRight,
+			closeOther,
+			closeAll,
+			reloadPage,
+		};
+	},
 });
 </script>
 <style lang="scss" scoped>
@@ -268,20 +277,19 @@ export default defineComponent({
 			background-color: white;
 			user-select: none;
 		}
-   
 
 		.ant-tabs-tabpane {
 			display: none;
 		}
 
 		.ant-tabs-tab:not(.ant-tabs-tab-active) {
-			.anticon-close { 
+			.anticon-close {
 				transition: width 0.3s;
-        color: #fff;
+				color: #fff;
 			}
 
 			&:hover .anticon-close {
-        color: #fff;
+				color: #fff;
 				width: 16px;
 			}
 		}

@@ -82,7 +82,6 @@ export default defineComponent({
 
     // 点击菜单
     const clickMenuItem = ({item, key, keyPath}) => {  
-      console.log(router.getRoutes())
       router.push({name: key})
     }
 

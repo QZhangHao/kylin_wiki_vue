@@ -469,31 +469,7 @@ h4.smaller {
     position: relative;
     height: 100%;
 }
-
-.root .cuk-markdown {
-    padding-bottom: 20vh;
-}
-
-
-.root .cuk-markdown h1:before,
-.root .cuk-markdown h2:before,
-.root .cuk-markdown h3:before {
-    content: '';
-    display: block;
-    position: relative;
-    margin-top: -57px;
-    width: 0;
-    height: 57px;
-    pointer-events: none;
-}
-
-
-.root .cuk-markdown h1,
-.root .cuk-markdown h2,
-.root .cuk-markdown h3 {
-    pointer-events: none;
-} 
-
+ 
 .scroll-content {
     height: 100%;
     width: 100%;
@@ -520,8 +496,7 @@ h4.smaller {
  
 
 .wiki {
-    display: flex;
-    padding: 0 56px;
+    display: flex; 
 }
 
 @media only screen and (min-width: 1030px) and (max-width: 1080px) {
@@ -604,17 +579,14 @@ h4.smaller {
     border-radius: 50% !important;
 }
 
-.wiki-info .updater-p {
-    max-width: 72px;
+.wiki-info .updater-p { 
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
-    color: #455166;
+    white-space: nowrap; 
     padding: 0 4px;
 }
 
-.wiki-info .creator {
-    max-width: 68px;
+.wiki-info .creator { 
     padding-right: 4px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -824,12 +796,12 @@ h4.smaller {
     cursor: poniter;
 }
 
-.wiki-tree-item-operation:hover {
+.wiki-tree-item-operation:hover,.wiki-tree-item-operation:active,.wiki-tree-item-operation:focus {
     opacity: 1;
 }
 
 .wiki-tree-menu-button {
-    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTggNi41YTEuNSAxLjUgMCAxMTAgMyAxLjUgMS41IDAgMDEwLTN6bTQuNSAwYTEuNSAxLjUgMCAxMTAgMyAxLjUgMS41IDAgMDEwLTN6bS05IDBhMS41IDEuNSAwIDExMCAzIDEuNSAxLjUgMCAwMTAtM3oiIGZpbGw9IiMyMDJENDAiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==);
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAkUlEQVQ4T6WTsRGAMAhFYQ4bV3EIXSNUzkHW0CHcw8bONfDiqZdEzsKfMvk8wgeYwMNgPD0AEVmIqDWzMcY4e+AQQs/MSkSrqnZJkwO2BEiXZjbUkCt4usC7qjYFoBIUkK+3wgNPeGZhvjO/fvcysYbkXniluV3wIF5w4UGeCQJAJUAmwm0UEWyQ4FH+u1TwNh7BfowRcj2GIAAAAABJRU5ErkJggg==);
     position: relative;
 }
 

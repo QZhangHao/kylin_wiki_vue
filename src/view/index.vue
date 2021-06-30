@@ -30,7 +30,6 @@ export default defineComponent({
 	name: 'defulat',
 	setup(){
 		const store = useStore();
-		console.log(store.getters.userInfo)
 	}
 });
 </script>

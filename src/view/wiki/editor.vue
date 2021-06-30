@@ -1,14 +1,14 @@
 <template>
 	<a-row style="margin: 8px">
 		<a-col :md="20">
-			<a-input type="text" name="name" class="form-control" placeholder="请输入文档名称" value="sdsdsaxzxzzxzx" />
+			<a-input type="text" name="name" class="form-control" placeholder="请输入Wiki标题" v-model:value="document.documentName" />
 		</a-col>
 		<a-col :md="4" style="padding-left: 12px">
-			<a-button type="primary" style="margin-right: 8px">
+			<a-button type="primary" style="margin-right: 8px" @click="editorChange">
 				<template #icon><SaveOutlined /></template>
-				保存</a-button
-			>
-			<a-button>
+				保存
+			</a-button>
+			<a-button @click="cancelChange">
 				<template #icon><RollbackOutlined /></template>
 				取消
 			</a-button>
@@ -16,63 +16,80 @@
 	</a-row>
 	<a-row style="margin: 8px">
 		<a-col :md="24">
-			<div ref="wrapRef"></div>
-		 
+			<div id="vditor"></div>
 		</a-col>
 	</a-row>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, unref, onMounted, nextTick, onUnmounted } from 'vue';
+import { defineComponent, ref, toRefs, watch, unref, onMounted, nextTick, onUnmounted, reactive, toRef } from 'vue';
 import { SaveOutlined, RollbackOutlined } from '@ant-design/icons-vue';
 import Vditor from 'vditor';
 import 'vditor/dist/index.css';
-import { propTypes } from '@/utils/propTypes'; 
+import { propTypes } from '@/utils/propTypes';
+import { createDocument, updateDocument } from '@/api/document';
+import { message } from 'ant-design-vue';
 
 export default defineComponent({
 	name: 'editor',
 	props: {
 		value: propTypes.string.def(''),
+		document: {
+			type: Object,
+		},
 	},
 	components: {
 		SaveOutlined,
-		RollbackOutlined, 
+		RollbackOutlined,
 	},
 	emits: ['change', 'get'],
 	setup(props, { attrs, emit }) {
-		const wrapRef = ref<ElRef>(null);
-		const vditorRef = ref<Nullable<Vditor>>(null);
-		const initedRef = ref(false);
-
-		//初始化Markdown编辑器
+		const contentEditor = ref<Nullable<Vditor>>(null);
+		const bindValue = { ...attrs, ...props };
 		function init() {
-			const wrapEl = unref(wrapRef);
-			if (!wrapEl) return;
-			const bindValue = { ...attrs, ...props };
-			vditorRef.value = new Vditor(wrapEl, {
-				theme: 'classic',
-				lang: unref('zh_CN'),
+			contentEditor.value = new Vditor('vditor', {
+				height: 680,
+				minHeight: 680,
+				width: '100%',
 				mode: 'sv',
-				preview: {
-					actions: [],
+				lang: 'zh_CN',
+				theme: 'classic',
+				toolbarConfig: {
+					pin: true,
 				},
-				input: (v) => {
-					// emit('update:value', v);
-					emit('change', v);
-				},
-				blur: () => {
-					unref(vditorRef)?.setValue(props.value.toString());
-				},
-				...bindValue,
 				cache: {
 					enable: false,
 				},
-				minHeight:680
+				...bindValue,
+				//工具栏
+				toolbar: [
+					'headings',
+					'bold',
+					'italic',
+					'strike',
+					'|',
+					'line',
+					'quote',
+					'list',
+					'ordered-list',
+					'check',
+					'outdent',
+					'indent',
+					'|',
+					'code',
+					'inline-code',
+					'undo',
+					'redo',
+					'upload',
+					'link',
+					'table',
+					'outline',
+					'br',
+				],
 			});
-			initedRef.value = true;
 		}
 		const instance = {
-			getVditor: (): Vditor => vditorRef.value!,
+			getVditor: (): Vditor => contentEditor.value!,
 		};
 
 		onMounted(() => {
@@ -83,14 +100,60 @@ export default defineComponent({
 		});
 
 		onUnmounted(() => {
-			const vditorInstance = unref(vditorRef);
+			const vditorInstance = unref(contentEditor);
 			if (!vditorInstance) return;
 			try {
 				vditorInstance?.destroy?.();
 			} catch (error) {}
 		});
+
+		const editorChange = () => {
+			const params = {
+				documentName: props.document?.documentName,
+				pid: props.document?.pid ?? 0,
+				content: contentEditor.value?.getValue(),
+				id: props.document?.id,
+			};
+			if (!params.documentName) {
+				message.error('Wiki 标题不能为空');
+				return;
+			}
+			if (params.id) {
+				updateDocument(params)
+					.then((res) => {
+						if (res.success) {
+							message.success('添加成功');
+							emit('change');
+						} else {
+							message.error('添加出错啦,请稍后再试');
+						}
+					})
+					.catch((err) => {
+						message.error('添加出错啦,请稍后再试');
+					});
+			} else {
+				delete params.id;
+				createDocument(params)
+					.then((res) => {
+						if (res.success) {
+							message.success('添加成功');
+							emit('change');
+						} else {
+							message.error('添加出错啦,请稍后再试');
+						}
+					})
+					.catch((err) => {
+						message.error('添加出错啦,请稍后再试');
+					});
+			}
+		};
+		const cancelChange = () => {
+			emit('change');
+		};
+
 		return {
-			wrapRef,
+			editorChange,
+			cancelChange,
 			...instance,
 		};
 	},
@@ -98,4 +161,13 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
+::v-deep(.vditor-preview__action) {
+	display: none;
+}
+::v-deep(.vditor-sv:focus) {
+	background-color: #fff;
+}
+::v-deep(.vditor-preview) {
+	background-color: #fff;
+}
 </style>
