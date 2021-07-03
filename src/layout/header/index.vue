@@ -24,24 +24,18 @@
 			</a-breadcrumb>
 		</div>
 		<div class="right-options">
-			<template v-for="item in iconList" :key="item.icon.name">
-				<a-tooltip placement="bottom">
-					<template #title>
-						<span>{{ item.tips }}</span>
-					</template>
-					<component v-on="item.eventObject || {}" :is="item.icon" />
-				</a-tooltip>
-			</template>
+			<a target="_blank" href="https://www.baidu.com">
+				<GithubOutlined />
+			</a>
+			<a target="_blank" href="https://www.baidu.com">
+				<icon icon="simple-icons:gitee" style="fontsize: 14"></icon>
+			</a>
 			<!--      切换全屏-->
 			<component :is="fullscreenIcon" @click="toggleFullScreen" />
 			<Dropdown>
-				<a-avatar>{{ username }}</a-avatar>
+				<a-avatar :src="avatar">{{ username }}</a-avatar>
 				<template v-slot:overlay>
 					<a-menu>
-						<a-menu-item>
-							<a href="javascript:;">个人中心</a>
-						</a-menu-item>
-						<a-menu-divider />
 						<a-menu-item>
 							<a @click.prevent="doLogout"><poweroff-outlined /> 退出登录</a>
 						</a-menu-item>
@@ -61,10 +55,11 @@ import { useStore } from '@/store';
 import components from '@/layout/header/component';
 import { UserActionTypes } from '@/store/modules/user/actions';
 import { TABS_ROUTES } from '@/store/mutation-types';
+import Icon from '@/components/Icon';
 
 export default {
 	name: 'PageHeader',
-	components: { ...components },
+	components: { ...components, Icon },
 	props: {
 		collapsed: {
 			type: Boolean,
@@ -74,8 +69,9 @@ export default {
 		const store = useStore();
 
 		const state = reactive({
-			username: store.getters.userInfo.username,
+			username: store.getters.userInfo.userInfo.userName,
 			fullscreenIcon: 'FullscreenOutlined',
+			avatar: store.getters.userInfo.userInfo.avatar,
 		});
 
 		const router = useRouter();
@@ -122,7 +118,13 @@ export default {
 		};
 
 		const iconList = [
-			{ icon: 'SearchOutlined', tips: '搜索' },
+			{
+				icon: 'SearchOutlined',
+				tips: '搜索',
+				eventObject: () => {
+					window.open('https://baidu.com');
+				},
+			},
 			{
 				icon: 'GithubOutlined',
 				tips: 'Github',

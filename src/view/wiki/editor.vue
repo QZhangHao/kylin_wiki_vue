@@ -97,6 +97,7 @@ export default defineComponent({
 				init();
 			});
 			emit('get', instance);
+			console.log(props.document?.id)
 		});
 
 		onUnmounted(() => {

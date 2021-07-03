@@ -10,5 +10,5 @@ export const constantRouterComponents = {
     '/system/dept': () => import(/* webpackChunkName: "system-dept" */ '@/view/dept/index.vue'), // 部门管理
     '/system/menu': () => import(/* webpackChunkName: "system-menu" */ '@/view/menu/index.vue'), // 菜单管理
     '/wiki': () => import('@/view/wiki/index.vue'),//Wiki首页
-    '/wiki/:wikiID': () => import('@/view/wiki/viewer.vue')
+    //'/wiki/:wikiID': () => import('@/view/wiki/viewer.vue')
 }

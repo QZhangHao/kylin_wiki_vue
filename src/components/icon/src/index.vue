@@ -76,11 +76,10 @@ export default defineComponent({
 	},
 });
 </script>
-<style lang="less">
+<style lang="less" >
 .app-iconify {
-	display: inline-block;
-	vertical-align: middle;
-
+	display: inline-block; 
+	vertical-align:none;
 	&-spin {
 		svg {
 			animation: loadingCircle 1s infinite linear;

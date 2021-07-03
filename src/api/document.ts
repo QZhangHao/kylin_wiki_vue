@@ -15,3 +15,23 @@ export function getDocument(params){
 export function updateDocument(params){
     return request('/api/Document','put',params)
 }
+
+export function deleteDocument(params){
+    return request(['/api/Document', params].join('/'),'delete')
+}
+
+export function getDocumentUserList(params){
+    return request('/api/DocumentUser','get',params)
+}
+
+export function updateDocumentUser(params){
+    return request('/api/DocumentUser','put',params)
+}
+
+export function createDocumentUser(params){
+    return request('/api/DocumentUser','post',params)
+}
+
+export function deleteDocumentUser(params){
+    return request(['/api/DocumentUser', params].join('/'),'delete')
+}

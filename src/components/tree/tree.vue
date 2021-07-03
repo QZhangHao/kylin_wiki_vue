@@ -2,12 +2,12 @@
 	<template v-for="(item, index) in tree" :key="index">
 		<li class="wiki-tree-item" :class="item.id === selectId ? 'is-active' : ''">
 			<div class="wiki-tree-item-drop-target">
-				<router-link class="wiki-tree-link" :to="{ name: 'wiki/:wikiID', params: { wikiID: item.id } }">
+				<a class="wiki-tree-link" >
 					<span
 						class="wiki-tree-item-indicator is-leaf"
 						:style="{ 'margin-left': item.path.split(',').length == 1 ? 0 : item.path.split(',').length * 15 + 'px' }"
 					></span>
-					<span class="wiki-tree-item-title">
+					<span class="wiki-tree-item-title" @click="selectChange(0,item.id)">
 						<span class="wiki-tree-item-title-content" :title="item.documentName">{{ item.documentName }}</span>
 					</span>
 					<span class="wiki-tree-item-state">
@@ -18,18 +18,16 @@
 						</span>
 					</span>
 					<span class="wiki-tree-item-operations">
-						<span class="optional-operation-wrapper">  
-							
-							<span class="wiki-tree-item-operation wiki-tree-create-button" @click="createChange"></span>
-							<span class="wiki-tree-item-operation wiki-tree-menu-button" @click="deleteChange"></span>
-							
+						<span class="optional-operation-wrapper">
+							<span class="wiki-tree-item-operation wiki-tree-create-button" @click="createChange(1,item.id)"></span>
+							<span class="wiki-tree-item-operation wiki-tree-menu-button" @click="deleteChange(2,item.id)"></span>
 						</span>
 					</span>
-				</router-link>
+				</a>
 			</div>
 		</li>
 		<template v-if="item.children?.length > 0">
-			<tree :tree="item.children" :selectId="selectId" @change="change"></tree>
+			<tree :tree="item.children" :selectId="selectId"  @change="selectChange"></tree>
 		</template>
 	</template>
 </template>
@@ -46,22 +44,22 @@ export default defineComponent({
 		},
 		selectId: propTypes.number,
 	},
-	emits:['change'],
-	setup(props,{attrs,emit}) {
-		const deleteChange=()=>{
-			emit('change',2)
+	emits: ['change'],
+	setup(props, { attrs, emit }) {  
+		const createChange=(v,w)=>{
+			emit('change',v,w)
 		}
-		const createChange=()=>{
-			emit('change',2) 
+		const deleteChange=(v,w)=>{
+			emit('change',v,w)
 		}
-		const change=()=>{
-			emit('change',2)
-		}
-		return {
-			change,
+		const selectChange = (v,w) => { 
+			emit('change', v,w);
+		};
+		return { 
+			createChange,
 			deleteChange,
-			createChange
-		}
+			selectChange, 
+		};
 	},
 });
 </script>

@@ -71,7 +71,7 @@ service.interceptors.response.use(
                 message: '系统错误：',
                 description: msg
             })
-            return Promise.reject(service.interceptors.response);
+            return Promise.reject(new Error(msg));
         } else if (code !== 200) {
             notification.err({
                 message: '系统错误：',
