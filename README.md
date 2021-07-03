@@ -16,6 +16,7 @@
 	</p>
 	<p>&nbsp;</p>
 </div>
+----
 # Kylin_Wiki 
 基于 vue3.x + typescript + vite + ant design vue等主流开发技术，开箱即用的前端解决方案，包括Wiki示例，帮助大家实现快速开发，也可用于学习参考。
 
@@ -58,7 +59,7 @@ Kylin_Wiki 是站在巨人的肩膀上开发的，参考了很多大佬的案例
 - [mavon-editor](https://github.com/hinesboy/mavonEditor)
 - [vue3-antd](https://github.com/buqiyuan/vite-vue3-admin)
 - [vue-pure-admin](https://github.com/xiaoxian521/vue-pure-admin.git)
-·····
+- ·····
 
 
 ## 捐赠
