@@ -21,7 +21,7 @@
 基于 vue3.x + typescript + vite + ant design vue等主流开发技术，开箱即用的前端解决方案，包括Wiki示例，帮助大家实现快速开发，也可用于学习参考。
 
 
-#### 系统管理
+### 系统管理
 - [x] 用户管理
 - [x] 角色管理
 - [x] 菜单管理
@@ -32,12 +32,12 @@
 - [x] Wiki编辑
 - [x] Wiki分享
 
-- 获取项目代码
+### 获取项目代码
 
 ```bash
 git clone https://gitee.com/8596007/kylin_wiki_vue 
 ```
-## 项目安装依赖
+### 项目安装依赖
 ```
 yarn install
 ```
@@ -52,7 +52,7 @@ yarn dev
 yarn build
 ```
 
-# 使用的一些插件
+### 使用的一些插件
 Kylin_Wiki 是站在巨人的肩膀上开发的，参考了很多大佬的案例以及使用了优秀的插件
 
 - [marked](https://marked.js.org/)
@@ -62,15 +62,15 @@ Kylin_Wiki 是站在巨人的肩膀上开发的，参考了很多大佬的案例
 - ·····
 
 
-## 捐赠
+### 捐赠
 
 如果你觉得这个项目对你有帮助，你可以帮作者买一杯咖啡表示支持!
 
 ![donate](https://gitee.com/8596007/NotePic/raw/master/wechat.jpg)
 
-## 维护者
+### 维护者
 
 [Howe](https://www.netcore.pub)
-## License
+### License
 
 [MIT © Howe](./LICENSE)
