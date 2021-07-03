@@ -1,27 +1,75 @@
-# Vue 3 + Typescript + Vite
+<div align="center">
+	<img src="./src/assets/images/logo.png">
+	<p align="center">
+	    <a href="https://v3.vuejs.org/" target="_blank">
+	        <img src="https://img.shields.io/badge/vue.js-vue3.x-green" alt="vue">
+	    </a>
+	    <a href="https://github.com/vueComponent/ant-design-vue" target="_blank">
+	        <img src="https://img.shields.io/badge/Ant%20Design%20Vue-2.x-yellowgreen" alt="ant design vue">
+	    </a>
+		<a href="https://www.tslang.cn/" target="_blank">
+	        <img src="https://img.shields.io/badge/typescript-%3E4.0.0-blue" alt="typescript">
+	    </a>
+		<a href="https://vitejs.dev/" target="_blank">
+		    <img src="https://img.shields.io/badge/vite-%3E2.0.0-yellow" alt="vite">
+		</a> 
+	</p>
+	<p>&nbsp;</p>
+</div>
+# Kylin_Wiki 
+基于 vue3.x + typescript + vite + ant design vue等主流开发技术，开箱即用的前端解决方案，包括Wiki示例，帮助大家实现快速开发，也可用于学习参考。
 
-This template should help get you started developing with Vue 3 and Typescript in Vite.
 
-## Recommended IDE Setup
+#### 系统管理
+- [x] 用户管理
+- [x] 角色管理
+- [x] 菜单管理
+- [x] 部门管理
 
-[VSCode](https://code.visualstudio.com/) + [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur). Make sure to enable `vetur.experimental.templateInterpolationService` in settings!
+#### Wiki管理模块
+- [x] Wiki列表
+- [x] Wiki编辑
+- [x] Wiki分享
 
-### If Using `<script setup>`
+- 获取项目代码
 
-[`<script setup>`](https://github.com/vuejs/rfcs/pull/227) is a feature that is currently in RFC stage. To get proper IDE support for the syntax, use [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) instead of Vetur (and disable Vetur).
+```bash
+git clone https://gitee.com/8596007/kylin_wiki_vue 
+```
+## 项目安装依赖
+```
+yarn install
+```
 
-## Type Support For `.vue` Imports in TS
+### 运行
+```
+yarn dev
+```
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can use the following:
+### 打包
+```
+yarn build
+```
 
-### If Using Volar
+# 使用的一些插件
+Kylin_Wiki 是站在巨人的肩膀上开发的，参考了很多大佬的案例以及使用了优秀的插件
 
-Run `Volar: Switch TS Plugin on/off` from VSCode command palette.
+- [marked](https://marked.js.org/)
+- [mavon-editor](https://github.com/hinesboy/mavonEditor)
+- [vue3-antd](https://github.com/buqiyuan/vite-vue3-admin)
+- [vue-pure-admin](https://github.com/xiaoxian521/vue-pure-admin.git)
+·····
 
-### If Using Vetur
 
-1. Install and add `@vuedx/typescript-plugin-vue` to the [plugins section](https://www.typescriptlang.org/tsconfig#plugins) in `tsconfig.json`
-2. Delete `src/shims-vue.d.ts` as it is no longer needed to provide module info to Typescript
-3. Open `src/main.ts` in VSCode
-4. Open the VSCode command palette
-5. Search and run "Select TypeScript version" -> "Use workspace version"
+## 捐赠
+
+如果你觉得这个项目对你有帮助，你可以帮作者买一杯咖啡表示支持!
+
+![donate](https://gitee.com/8596007/NotePic/raw/master/wechat.jpg)
+
+## 维护者
+
+[Howe](https://www.netcore.pub)
+## License
+
+[MIT © Howe](./LICENSE)
