@@ -24,6 +24,13 @@
 # Kylin_Wiki 
 基于 vue3.x + typescript + vite + ant design vue等主流开发技术，开箱即用的前端解决方案，包括Wiki示例，帮助大家实现快速开发，也可用于学习参考。
 
+#### 在线体验
+
+体验地址：[https://www.3399.plus/](https://www.3399.plus/)
+
+账号密码：admin/123456
+
+#### WebAPI项目地址：[https://gitee.com/8596007/kylin_wiki](https://gitee.com/8596007/kylin_wiki)
 
 ### 系统管理
 - [x] 用户管理
@@ -31,10 +38,22 @@
 - [x] 菜单管理
 - [x] 部门管理
 
-#### Wiki管理模块
+### Wiki管理模块
 - [x] Wiki列表
 - [x] Wiki编辑
 - [x] Wiki分享
+
+### 项目截图
+
+![系统登陆](https://gitee.com/8596007/NotePic/raw/master/Project/image-20210704181619241.png)
+
+![菜单管理](https://gitee.com/8596007/NotePic/raw/master/Project/image-20210704181706942.png)
+
+![部门管理](https://gitee.com/8596007/NotePic/raw/master/Project/image-20210704181735653.png)
+
+![Wiki](https://gitee.com/8596007/NotePic/raw/master/Project/image-20210704181800972.png)
+
+![Wiki编辑页面](https://gitee.com/8596007/NotePic/raw/master/Project/image-20210704181831733.png)
 
 ### 获取项目代码
 
