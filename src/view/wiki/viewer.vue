@@ -95,6 +95,7 @@ import { getDocumentUserList, updateDocumentUser, deleteDocumentUser, createDocu
 import { getList } from '@/api/user';
 import { EditOutlined, CheckOutlined, DeleteOutlined } from '@ant-design/icons-vue';
 import { message } from 'ant-design-vue';
+import { propTypes } from '@/utils/propTypes';
 
 let rendererMD = new marked.Renderer();
 marked.setOptions({
@@ -141,9 +142,7 @@ interface DataItem {
 export default defineComponent({
 	name: 'wiki_viewer',
 	props: {
-		document: {
-			type: Object,
-		},
+		document: propTypes.object
 	},
 	components: {
 		marked,

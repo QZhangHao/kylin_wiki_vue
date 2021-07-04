@@ -26,7 +26,6 @@
 	<a-modal v-model:visible="visible" title="系统提示" @ok="handleOk">
 		<p>确认删除吗？</p>
 	</a-modal>
-
 </template>
 
 <script lang="ts">
@@ -60,18 +59,18 @@ export default defineComponent({
 			list: [] as any[],
 			selectId: 0,
 			modeType: 1, //模式1查看2编辑
-			document: Object,
-			valueRef: String,
-			editDocument: Object,
+			document: {},
+			valueRef: '',
+			editDocument: {},
 			visible: false,
 		});
 
-		const init = async () => { 
+		const init = async () => {
 			const { data } = await getDocumentList();
 			state.list = data;
 			state.selectId = data[0].id;
 			if (state.selectId != 0) {
-				const { data } = await getDocument({ wikiID: state.selectId,userId:store.getters.userInfo.userInfo.userID });
+				const { data } = await getDocument({ wikiID: state.selectId, userId: store.getters.userInfo.userInfo.userID });
 				state.document = data;
 			}
 		};
@@ -82,7 +81,7 @@ export default defineComponent({
 		watch(
 			() => state.selectId,
 			async (selectId) => {
-				const { data } = await getDocument({ wikiID: state.selectId,userId:store.getters.userInfo.userInfo.userID });
+				const { data } = await getDocument({ wikiID: state.selectId, userId: store.getters.userInfo.userInfo.userID });
 				state.document = data;
 			}
 		);
@@ -103,11 +102,11 @@ export default defineComponent({
 		function viewerChange(v) {
 			state.valueRef = v.content;
 			state.editDocument = v;
-			state.modeType = 2; 
+			state.modeType = 2;
 		}
 		function treeChange(v, w) {
 			state.selectId = w;
-			if (v === 1) { 
+			if (v === 1) {
 				const document = {
 					documentName: '',
 					pid: state.selectId,
@@ -115,25 +114,16 @@ export default defineComponent({
 				};
 				state.editDocument = document;
 				state.valueRef = '';
-				state.modeType = 2; 
+				state.modeType = 2;
 			} else if (v === 2) {
 				state.visible = true;
 			}
 		}
 		const handleOk = () => {
-			deleteDocument(state.selectId)
-				.then((res) => {
-					if (res.success) {
-						message.success('删除成功'); 
-						state.visible=false;
-						init();
-					} else {
-					
-						state.visible=false;
-						init();
-					}
-				})
-				
+			deleteDocument(state.selectId).then((res) => {
+				state.visible = false;
+				init();
+			});
 		};
 
 		return {

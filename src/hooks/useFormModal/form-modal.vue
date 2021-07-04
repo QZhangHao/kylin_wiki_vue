@@ -6,7 +6,7 @@
       :afterClose="remove"
       @ok="onOk"
   >
-    <schema-form ref="dynamicForm" :fields="fields" :form-schema="dynamicValidateForm" />
+    <schema-form ref="dynamicForm" :form-schema="dynamicValidateForm" />
   </a-modal>
 </template>
 

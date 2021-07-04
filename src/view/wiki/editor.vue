@@ -34,9 +34,7 @@ export default defineComponent({
 	name: 'editor',
 	props: {
 		value: propTypes.string.def(''),
-		document: {
-			type: Object,
-		},
+		document: propTypes.object
 	},
 	components: {
 		SaveOutlined,
@@ -79,7 +77,7 @@ export default defineComponent({
 					'code',
 					'inline-code',
 					'undo',
-					'redo', 
+					'redo',
 					'link',
 					'table',
 					'outline',
@@ -96,7 +94,7 @@ export default defineComponent({
 				init();
 			});
 			emit('get', instance);
-			console.log(props.document?.id)
+			console.log(props.document?.id);
 		});
 
 		onUnmounted(() => {
@@ -121,12 +119,8 @@ export default defineComponent({
 			if (params.id) {
 				updateDocument(params)
 					.then((res) => {
-						if (res.success) {
-							message.success('添加成功');
-							emit('change');
-						} else {
-							message.error('添加出错啦,请稍后再试');
-						}
+						message.success('添加成功');
+						emit('change');
 					})
 					.catch((err) => {
 						message.error('添加出错啦,请稍后再试');
@@ -135,12 +129,8 @@ export default defineComponent({
 				delete params.id;
 				createDocument(params)
 					.then((res) => {
-						if (res.success) {
-							message.success('添加成功');
-							emit('change');
-						} else {
-							message.error('添加出错啦,请稍后再试');
-						}
+						message.success('添加成功');
+						emit('change');
 					})
 					.catch((err) => {
 						message.error('添加出错啦,请稍后再试');

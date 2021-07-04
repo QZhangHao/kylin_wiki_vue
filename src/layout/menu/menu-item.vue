@@ -36,6 +36,7 @@
 import { defineComponent } from 'vue';
 import { Menu } from 'ant-design-vue';
 import Icon from '@/components/Icon';
+import { propTypes } from '@/utils/propTypes';
 export default defineComponent({
 	name: 'menu-item',
 	components: {
@@ -44,10 +45,7 @@ export default defineComponent({
 		Icon,
 	},
 	props: {
-		menuInfo: {
-			typo: Object,
-			default: () => ({}),
-		},
+		menuInfo: propTypes.object
 	},
 	setup() {},
 });
